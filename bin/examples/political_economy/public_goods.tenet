@@ -1,0 +1,58 @@
+// ═══════════════════════════════════════════════════════════════
+// PUBLIC GOODS GAME (Free Rider Problem)
+// Everyone benefits from public goods, but no one wants to pay.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Setup:
+//   - Each player can Contribute or FreeRide
+//   - Contributions are doubled and split evenly
+//   - Rational strategy: Don't contribute, enjoy others' work
+//
+// This explains: Why we need taxes, union problems, group projects
+// ═══════════════════════════════════════════════════════════════
+
+var contribution = 10;
+var multiplier = 2;
+
+game PublicGoods {
+    players Citizen1, Citizen2
+    strategies Contribute, FreeRide
+    
+    // Both contribute: Pool = 20 × 2 = 40, split = 20 each
+    // Net: 20 - 10 = 10 each
+    
+    // One contributes: Pool = 10 × 2 = 20, split = 10 each
+    // Contributor: 10 - 10 = 0
+    // FreeRider: 10 - 0 = 10
+    
+    // Neither contributes: Pool = 0, both get 0
+    
+    payoff Citizen1 {
+        (Contribute, Contribute): 10
+        (Contribute, FreeRide): 0
+        (FreeRide, Contribute): 10
+        (FreeRide, FreeRide): 0
+    }
+    
+    payoff Citizen2 {
+        (Contribute, Contribute): 10
+        (FreeRide, Contribute): 0
+        (Contribute, FreeRide): 10
+        (FreeRide, FreeRide): 0
+    }
+}
+
+print "=== Public Goods Game ===";
+print "";
+print "The Free Rider Problem:";
+print "  Contributing costs me, but benefits everyone.";
+print "  Best move: Let others pay while I enjoy the benefits.";
+print "";
+
+solve PublicGoods;
+
+print "";
+print "Insight: Without enforcement, public goods are underprovided.";
+print "This is why governments collect taxes.";
+</Parameter>
+<parameter name="Complexity">3

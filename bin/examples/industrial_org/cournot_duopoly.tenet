@@ -1,0 +1,69 @@
+// ═══════════════════════════════════════════════════════════════
+// COURNOT DUOPOLY
+// Two firms compete on quantity. Price drops as total supply rises.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Math:
+//   Price = MaxPrice - TotalQuantity
+//   Profit = (Price - Cost) × MyQuantity
+//
+// Nash Equilibrium: Both firms produce moderate quantities.
+// If both produce too much, prices crash and profits fall.
+// ═══════════════════════════════════════════════════════════════
+
+// Market parameters
+var max_price = 100;
+var unit_cost = 10;
+
+// Output levels
+var q_low = 30;
+var q_high = 45;
+
+// Profit function: (Price - Cost) × Quantity
+// Price = MaxPrice - (q1 + q2)
+
+game CournotDuopoly {
+    players Firm1, Firm2
+    strategies Low, High
+    
+    // When both produce low: Price = 100 - 60 = 40
+    // Profit = (40 - 10) × 30 = 900
+    
+    // When one high, one low: Price = 100 - 75 = 25
+    // High firm: (25-10) × 45 = 675
+    // Low firm:  (25-10) × 30 = 450
+    
+    // When both high: Price = 100 - 90 = 10
+    // Profit = (10 - 10) × 45 = 0
+    
+    payoff Firm1 {
+        (Low, Low): 900
+        (Low, High): 450
+        (High, Low): 675
+        (High, High): 0
+    }
+    
+    payoff Firm2 {
+        (Low, Low): 900
+        (Low, High): 675
+        (High, Low): 450
+        (High, High): 0
+    }
+}
+
+print "=== Cournot Duopoly Analysis ===";
+print "";
+print "Market Parameters:";
+print "  Max Price: 100";
+print "  Unit Cost: 10";
+print "";
+print "Strategy Options:";
+print "  Low Output:  30 units";
+print "  High Output: 45 units";
+print "";
+
+solve CournotDuopoly;
+
+print "";
+print "Insight: Both firms choosing 'Low' yields highest joint profit.";
+print "But each firm is tempted to defect to 'High' for short-term gain.";

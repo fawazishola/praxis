@@ -1,0 +1,120 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// THE OBSESSION SIGNAL: Irrational Dedication as Proof of Conviction
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// Building compiler infrastructure at 19 is "irrational" by normal standards.
+// There's no course requirement. No job requirement. No one asked for it.
+//
+// But that irrationality IS THE SIGNAL.
+// Only genuinely obsessed people do things nobody asked for.
+//
+// ═══════════════════════════════════════════════════════════════════════════════
+
+print "═══════════════════════════════════════════════════════════════════";
+print "    THE OBSESSION SIGNAL: Irrational Dedication as Conviction       ";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+
+// What are "rational" things for a 19-year-old CS student to do?
+print "RATIONAL ACTIVITIES FOR A 19-YEAR-OLD CS STUDENT:";
+print "──────────────────────────────────────────────────────────────────";
+print "  ✓ Complete coursework (get the credential)";
+print "  ✓ Do internships (build resume)";
+print "  ✓ Build portfolio projects (GitHub stars)";
+print "  ✓ Network at career fairs (job security)";
+print "  ✓ Learn trending tech (marketable skills)";
+print "";
+
+print "WHAT FAWAZ DID INSTEAD:";
+print "──────────────────────────────────────────────────────────────────";
+print "  ✗ Built a programming language (nobody asked)";
+print "  ✗ Implemented a lexer, parser, interpreter (no course credit)";
+print "  ✗ Created a game theory DSL (no job posting requests this)";
+print "  ✗ Wrote 22 pages of documentation (who does this voluntarily?)";
+print "  ✗ Built a VS Code extension (because syntax highlighting matters)";
+print "";
+
+game ObsessionSignaling {
+    players ObsessedFounder, RationalActor
+    strategies BuildInfra, ChaseHype, FollowPlaybook
+    
+    // The payoff from building infrastructure is DELAYED
+    // Rational actors discount future returns heavily
+    // Only obsessed actors persist through the long payoff gap
+    
+    payoff ObsessedFounder {
+        (BuildInfra, ChaseHype): 100     // Infrastructure pays off long-term
+        (BuildInfra, FollowPlaybook): 100
+        (ChaseHype, ChaseHype): 30       // Competing in crowded space
+        (FollowPlaybook, FollowPlaybook): 40  // Conventional path
+    }
+    
+    payoff RationalActor {
+        (BuildInfra, ChaseHype): 0       // Cannot persist, gives up
+        (BuildInfra, FollowPlaybook): 0  // Cannot persist, gives up
+        (ChaseHype, ChaseHype): 50       // Quick wins possible
+        (FollowPlaybook, FollowPlaybook): 60  // Safe, predictable
+    }
+}
+
+print "THE OBSESSION GAME:";
+solve ObsessionSignaling;
+
+print "";
+print "ANALYSIS:";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "BuildInfra is a SEPARATING STRATEGY.";
+print "Only obsessed founders can execute it.";
+print "";
+print "Why? Because infrastructure work:";
+print "  1. Has no immediate payoff (no dopamine)";
+print "  2. Is invisible to most people (no status)";
+print "  3. Requires deep focus (can't multitask)";
+print "  4. Takes months of sustained effort (delayed gratification)";
+print "";
+print "Rational actors abandon infrastructure projects.";
+print "Obsessed founders complete them.";
+print "";
+
+// The things that reveal obsession
+print "═══════════════════════════════════════════════════════════════════";
+print "OBSESSION INDICATORS IN FAWAZ'S WORK:";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+print "┌─────────────────────────────────────────────────────────────────┐";
+print "│ INDICATOR 1: Scope Creep Toward Quality                        │";
+print "│ • Started with interpreter, ADDED game theory DSL              │";
+print "│ • Started with code, ADDED documentation site                  │";
+print "│ • Started with language, ADDED VS Code extension               │";
+print "│ → This is obsession: always making it BETTER, not just done    │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ INDICATOR 2: Deep Rabbit Holes                                 │";
+print "│ • Implemented closures (could have skipped)                    │";
+print "│ • Implemented inheritance (could have skipped)                 │";
+print "│ • Implemented resolver (could have used simpler scoping)       │";
+print "│ → This is obsession: can't stop until it's RIGHT               │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ INDICATOR 3: Meta-Level Thinking                               │";
+print "│ • Used Tenet to MODEL startup strategy                         │";
+print "│ • Used Tenet to PROVE founder capability                       │";
+print "│ • Used Tenet to SIMULATE market dynamics                       │";
+print "│ → This is obsession: the tool becomes part of reality          │";
+print "└─────────────────────────────────────────────────────────────────┘";
+print "";
+
+print "═══════════════════════════════════════════════════════════════════";
+print "THE META-INSIGHT:";
+print "";
+print "Investors screen for obsession because:";
+print "  • Startups take 7-10 years";
+print "  • Most founders quit in year 2-3";
+print "  • Only the obsessed persist through 'the dip'";
+print "";
+print "Building a DSL at 19 with no external reward is IRRATIONAL.";
+print "That irrationality is the PROOF of obsession.";
+print "That obsession is the PREDICTOR of persistence.";
+print "";
+print "The Axiom stack isn't just code.";
+print "It's a 10,000-hour signal of 'I will never quit this.'";
+print "═══════════════════════════════════════════════════════════════════";

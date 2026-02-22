@@ -1,0 +1,58 @@
+// ═══════════════════════════════════════════════════════════════
+// ENTRY DETERRENCE (Limit Pricing)
+// A monopolist decides whether to build capacity to scare off entry.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Setup:
+//   - Incumbent (Monopoly) moves first
+//   - Entrant decides whether to enter the market
+//   - If Incumbent builds excess capacity, entry is less profitable
+//
+// Key Insight: Sometimes "wasteful" investment is strategic.
+// ═══════════════════════════════════════════════════════════════
+
+var monopoly_profit = 100;
+var duopoly_profit = 40;
+var capacity_cost = 20;
+var entry_loss = -10;
+
+game EntryDeterrence {
+    players Incumbent, Entrant
+    strategies Normal, Aggressive, Enter, StayOut
+    
+    // Incumbent plays Normal/Aggressive
+    // Entrant plays Enter/StayOut
+    
+    // Normal + StayOut: Monopoly profits
+    // Normal + Enter: Duopoly, both make some profit
+    // Aggressive + StayOut: Monopoly minus capacity cost
+    // Aggressive + Enter: Price war, entrant loses money
+    
+    payoff Incumbent {
+        (Normal, Enter): 40
+        (Normal, StayOut): 100
+        (Aggressive, Enter): 30
+        (Aggressive, StayOut): 80
+    }
+    
+    payoff Entrant {
+        (Normal, Enter): 40
+        (Normal, StayOut): 0
+        (Aggressive, Enter): -10
+        (Aggressive, StayOut): 0
+    }
+}
+
+print "=== Entry Deterrence Game ===";
+print "";
+print "The Incumbent's Dilemma:";
+print "  - Building excess capacity costs money";
+print "  - But it signals 'I will fight if you enter'";
+print "";
+
+solve EntryDeterrence;
+
+print "";
+print "Insight: Credible threats require costly commitment.";
+print "The Incumbent might prefer (Aggressive, StayOut) = 80";
+print "over (Normal, Enter) = 40";

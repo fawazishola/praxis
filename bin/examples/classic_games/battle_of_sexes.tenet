@@ -1,0 +1,55 @@
+// ═══════════════════════════════════════════════════════════════
+// BATTLE OF THE SEXES
+// A coordination game with multiple equilibria.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Story:
+//   Alice and Bob want to spend the evening together.
+//   Alice prefers Opera, Bob prefers Football.
+//   They prefer being together over being alone.
+//
+// Key Insight: TWO pure Nash equilibria exist.
+// The challenge is coordinating on which one.
+// ═══════════════════════════════════════════════════════════════
+
+game BattleOfSexes {
+    players Alice, Bob
+    strategies Opera, Football
+    
+    // Together at Opera: Alice happy (3), Bob okay (2)
+    // Together at Football: Bob happy (3), Alice okay (2)
+    // Apart: Both unhappy (0)
+    
+    payoff Alice {
+        (Opera, Opera): 3
+        (Opera, Football): 0
+        (Football, Opera): 0
+        (Football, Football): 2
+    }
+    
+    payoff Bob {
+        (Opera, Opera): 2
+        (Opera, Football): 0
+        (Football, Opera): 0
+        (Football, Football): 3
+    }
+}
+
+print "=== Battle of the Sexes ===";
+print "";
+print "A Pure Coordination Problem:";
+print "  - Both want to be together";
+print "  - But they prefer different venues";
+print "";
+
+solve BattleOfSexes;
+
+print "";
+print "Two Nash Equilibria:";
+print "  1. (Opera, Opera)       - Alice: 3, Bob: 2";
+print "  2. (Football, Football) - Alice: 2, Bob: 3";
+print "";
+print "Which will they choose? It depends on:";
+print "  - Communication";
+print "  - Social norms";
+print "  - Focal points (Schelling)";

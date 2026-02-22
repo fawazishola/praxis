@@ -1,0 +1,53 @@
+// ═══════════════════════════════════════════════════════════════
+// TRUST GAME
+// Investor sends money (which triples). Trustee decides return.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Setup:
+//   - Investor has $10, can send $0 or $10
+//   - Money sent is TRIPLED ($10 becomes $30)
+//   - Trustee decides how much to return
+//
+// This is the foundation of all credit/banking systems.
+// ═══════════════════════════════════════════════════════════════
+
+var investment = 10;
+var multiplier = 3;
+
+game TrustGame {
+    players Investor, Trustee
+    strategies Invest, HoldBack, ReturnHalf, KeepAll
+    
+    // HoldBack: Investor keeps $10, game ends
+    // Invest + ReturnHalf: Money triples, split fairly
+    //   Investor: 15, Trustee: 15
+    // Invest + KeepAll: Trustee takes everything
+    //   Investor: 0, Trustee: 30
+    
+    payoff Investor {
+        (HoldBack, ReturnHalf): 10
+        (HoldBack, KeepAll): 10
+        (Invest, ReturnHalf): 15
+        (Invest, KeepAll): 0
+    }
+    
+    payoff Trustee {
+        (HoldBack, ReturnHalf): 0
+        (HoldBack, KeepAll): 0
+        (Invest, ReturnHalf): 15
+        (Invest, KeepAll): 30
+    }
+}
+
+print "=== Trust Game ===";
+print "";
+print "The Trust Paradox:";
+print "  Backward induction: Trustee keeps all, so Investor holds back.";
+print "  But in experiments, ~50% of people trust and ~50% reciprocate!";
+print "";
+
+solve TrustGame;
+
+print "";
+print "Insight: Trust creates value (10 becomes 30).";
+print "Societies with high trust are richer.";

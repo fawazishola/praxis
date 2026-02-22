@@ -1,0 +1,52 @@
+// ═══════════════════════════════════════════════════════════════
+// STAG HUNT
+// Coordination game testing trust and cooperation risk.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Story:
+//   Two hunters can hunt a Stag (high value, needs both)
+//   or hunt a Hare (low value, can do alone)
+//
+// Unlike Prisoner's Dilemma, cooperation IS stable here.
+// The problem is getting there.
+// ═══════════════════════════════════════════════════════════════
+
+var stag_value = 10;
+var hare_value = 3;
+
+game StagHunt {
+    players Hunter1, Hunter2
+    strategies Stag, Hare
+    
+    // Stag + Stag: Big payoff, cooperation works
+    // Hare + Hare: Safe, small payoff
+    // Stag + Hare: Stag hunter gets nothing (can't catch alone)
+    //              Hare hunter succeeds
+    
+    payoff Hunter1 {
+        (Stag, Stag): 10
+        (Stag, Hare): 0
+        (Hare, Stag): 3
+        (Hare, Hare): 3
+    }
+    
+    payoff Hunter2 {
+        (Stag, Stag): 10
+        (Hare, Stag): 0
+        (Stag, Hare): 3
+        (Hare, Hare): 3
+    }
+}
+
+print "=== Stag Hunt ===";
+print "";
+print "Two Nash Equilibria exist:";
+print "  1. (Stag, Stag) - High payoff but risky";
+print "  2. (Hare, Hare) - Safe but low payoff";
+print "";
+
+solve StagHunt;
+
+print "";
+print "Insight: Unlike Prisoner's Dilemma, cooperation is stable.";
+print "The problem is coordination and trust, not incentives.";

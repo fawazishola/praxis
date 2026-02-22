@@ -1,0 +1,110 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// MECHANISM DESIGN: Building Tools for Novel Problems
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// Mechanism design is "reverse game theory."
+// Instead of analyzing existing games, you DESIGN the rules.
+//
+// The insight: Atlas is a NOVEL problem (no playbook).
+// Founders who can only use existing tools will fail.
+// Founders who can DESIGN new mechanisms will win.
+//
+// Fawaz proved he can design mechanisms — that's what Tenet IS.
+//
+// ═══════════════════════════════════════════════════════════════════════════════
+
+print "═══════════════════════════════════════════════════════════════════";
+print "       MECHANISM DESIGN: Building Tools for Novel Problems          ";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+
+print "THE PROBLEM CLASSIFICATION:";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "KNOWN PROBLEMS (playbook exists):";
+print "  • Build an e-commerce store → Shopify template";
+print "  • Build a mobile app → React Native + Firebase";
+print "  • Build a SaaS → Django/Rails + Stripe";
+print "";
+print "NOVEL PROBLEMS (no playbook):";
+print "  • Build the 'creator economy OS' → ???";
+print "  • Build a portable identity layer → ???";
+print "  • Build cross-platform fintech for individuals → ???";
+print "";
+
+game ProblemSolvingCapability {
+    players MechanismDesigner, ToolUser
+    strategies DesignNew, UseExisting, NovelProblem, KnownProblem
+    
+    // When problems are KNOWN, tool users are fine
+    // When problems are NOVEL, only mechanism designers succeed
+    
+    payoff MechanismDesigner {
+        (DesignNew, NovelProblem): 100     // This is where value is created
+        (DesignNew, KnownProblem): 70      // Overkill but works
+        (UseExisting, NovelProblem): 20    // Struggles with adaptation
+        (UseExisting, KnownProblem): 60    // Fine for commodity work
+    }
+    
+    payoff ToolUser {
+        (DesignNew, NovelProblem): 0       // Cannot do this
+        (DesignNew, KnownProblem): 0       // Cannot do this
+        (UseExisting, NovelProblem): 30    // Patches together solutions
+        (UseExisting, KnownProblem): 80    // Actually optimal here
+    }
+}
+
+print "THE CAPABILITY GAME:";
+solve ProblemSolvingCapability;
+
+print "";
+print "ANALYSIS:";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "For KNOWN problems:";
+print "  Tool users are often MORE efficient (80 vs 70)";
+print "  Mechanism designers are overkill";
+print "";
+print "For NOVEL problems:";
+print "  Tool users CANNOT succeed (payoff = 0-30)";
+print "  Only mechanism designers thrive (payoff = 100)";
+print "";
+print "ATLAS IS A NOVEL PROBLEM.";
+print "There is no 'Shopify for creator economy OS.'";
+print "There is no playbook.";
+print "";
+
+// What Tenet proves about mechanism design capability
+print "═══════════════════════════════════════════════════════════════════";
+print "WHAT TENET PROVES ABOUT FAWAZ:";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+print "Tenet is itself a MECHANISM DESIGN project:";
+print "";
+print "  ┌───────────────────────────────────────────────────────────────┐";
+print "  │ MECHANISM DESIGN IN TENET                                    │";
+print "  ├───────────────────────────────────────────────────────────────┤";
+print "  │ • Designed a NEW SYNTAX for game definition                  │";
+print "  │ • Designed SEMANTICS for payoff computation                  │";
+print "  │ • Designed TYPE RULES for strategy validation                │";
+print "  │ • Designed DSL EXTENSIONS to a base language                 │";
+print "  │ • Designed USER EXPERIENCE (REPL, error messages)            │";
+print "  └───────────────────────────────────────────────────────────────┘";
+print "";
+print "These are the SAME skills needed for Atlas:";
+print "";
+print "  ┌───────────────────────────────────────────────────────────────┐";
+print "  │ MECHANISM DESIGN IN ATLAS                                    │";
+print "  ├───────────────────────────────────────────────────────────────┤";
+print "  │ • Design a NEW IDENTITY LAYER for creators                   │";
+print "  │ • Design INCENTIVE STRUCTURES for the protocol               │";
+print "  │ • Design GOVERNANCE RULES for the ecosystem                  │";
+print "  │ • Design FINANCIAL PRIMITIVES for micro-enterprises          │";
+print "  │ • Design USER EXPERIENCE for non-technical creators          │";
+print "  └───────────────────────────────────────────────────────────────┘";
+print "";
+print "The isomorphism is clear:";
+print "  Tenet : Game Theory :: Atlas : Creator Economy";
+print "";
+print "Both require DESIGNING mechanisms, not just USING tools.";
+print "═══════════════════════════════════════════════════════════════════";

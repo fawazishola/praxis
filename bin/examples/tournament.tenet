@@ -1,0 +1,117 @@
+// ════════════════════════════════════════════
+//   TENET: Iterated Prisoner's Dilemma
+//   "The Evolution of Trust"
+// ════════════════════════════════════════════
+
+// ──[ Configuration ]─────────────────────────
+var ROUNDS = 20;
+var Cooperate = 0;
+var Defect = 1;
+
+// ──[ 1. Define the Game ]────────────────────
+game PD {
+    players P1, P2
+    strategies Cooperate, Defect
+    
+    payoff P1 {
+        (Cooperate, Cooperate): 3
+        (Cooperate, Defect): 0
+        (Defect, Cooperate): 5
+        (Defect, Defect): 1
+    }
+    
+    payoff P2 {
+        (Cooperate, Cooperate): 3
+        (Defect, Cooperate): 0
+        (Cooperate, Defect): 5
+        (Defect, Defect): 1
+    }
+}
+
+// ──[ 2. Define Strategies ]──────────────────
+
+// Always nice
+fun Angel() {
+    return Cooperate;
+}
+
+// Always mean
+fun Devil() {
+    return Defect;
+}
+
+// Mimics opponent's last move (Tit-for-Tat)
+fun Copycat(last_opp_move) {
+    if (last_opp_move == nil) {
+        return Cooperate; // Start nice
+    }
+    return last_opp_move;
+}
+
+// Grudger: Cooperates until betrayed, then never forgives
+fun Grudger(last_opp_move, betrayed) {
+    if (last_opp_move == Defect) {
+        return Defect; // Betrayed!
+    }
+    if (betrayed) return Defect;
+    return Cooperate; 
+}
+
+// ──[ 3. Simulation Loop ]────────────────────
+
+var score_p1 = 0;
+var score_p2 = 0;
+
+// Since we can't switch strategies dynamically easily without 'simulate',
+// We will hardcode a match: Copycat vs Devil
+
+var last_move_p1 = nil;
+var last_move_p2 = nil;
+
+var r = 0;
+while (r < ROUNDS) {
+    // --- Player 1 Logic (Copycat) ---
+    var move_p1 = Copycat(last_move_p2);
+    
+    // --- Player 2 Logic (Devil) ---
+    var move_p2 = Devil();
+    
+    // --- Calculate Payoff ---
+    var payoff_p1 = 0;
+    var payoff_p2 = 0;
+    
+    if (move_p1 == Cooperate) {
+        if (move_p2 == Cooperate) {
+            payoff_p1 = 3; payoff_p2 = 3;
+        } else {
+            payoff_p1 = 0; payoff_p2 = 5;
+        }
+    } else {
+        if (move_p2 == Cooperate) {
+            payoff_p1 = 5; payoff_p2 = 0;
+        } else {
+            payoff_p1 = 1; payoff_p2 = 1;
+        }
+    }
+    
+    // Update Totals
+    score_p1 = score_p1 + payoff_p1;
+    score_p2 = score_p2 + payoff_p2;
+    
+    // Update History for next round
+    last_move_p1 = move_p1;
+    last_move_p2 = move_p2;
+    
+    // Output Data Block
+    print "ROUND_START";
+    print r;
+    print move_p1;
+    print move_p2;
+    print payoff_p1;
+    print payoff_p2;
+    print score_p1;
+    print score_p2;
+    print "ROUND_END";
+    
+    r = r + 1;
+}

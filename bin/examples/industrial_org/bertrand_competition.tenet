@@ -1,0 +1,74 @@
+// ═══════════════════════════════════════════════════════════════
+// BERTRAND COMPETITION
+// Two firms compete on price. Lowest price wins the market.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Math:
+//   If P1 < P2: Firm1 gets all customers
+//   If P1 = P2: They split the market
+//   If P1 > P2: Firm1 gets nothing
+//
+// Nash Equilibrium: Price = Marginal Cost (zero profit!)
+// This is the "Bertrand Paradox" - competition destroys profits.
+// ═══════════════════════════════════════════════════════════════
+
+var market_size = 100;
+var marginal_cost = 20;
+
+// Price levels
+var p_high = 60;
+var p_low = 40;
+var p_war = 20;  // Price war = cost
+
+game BertrandCompetition {
+    players Firm1, Firm2
+    strategies HighPrice, LowPrice, PriceWar
+    
+    // HighPrice vs HighPrice: Split market at high margin
+    // (60 - 20) × 50 = 2000 each
+    
+    // HighPrice vs LowPrice: Low price wins all
+    // Low: (40-20) × 100 = 2000, High: 0
+    
+    // LowPrice vs LowPrice: Split at low margin
+    // (40 - 20) × 50 = 1000 each
+    
+    // PriceWar: Zero profit for everyone
+    
+    payoff Firm1 {
+        (HighPrice, HighPrice): 2000
+        (HighPrice, LowPrice): 0
+        (HighPrice, PriceWar): 0
+        (LowPrice, HighPrice): 2000
+        (LowPrice, LowPrice): 1000
+        (LowPrice, PriceWar): 0
+        (PriceWar, HighPrice): 0
+        (PriceWar, LowPrice): 0
+        (PriceWar, PriceWar): 0
+    }
+    
+    payoff Firm2 {
+        (HighPrice, HighPrice): 2000
+        (LowPrice, HighPrice): 0
+        (PriceWar, HighPrice): 0
+        (HighPrice, LowPrice): 2000
+        (LowPrice, LowPrice): 1000
+        (PriceWar, LowPrice): 0
+        (HighPrice, PriceWar): 0
+        (LowPrice, PriceWar): 0
+        (PriceWar, PriceWar): 0
+    }
+}
+
+print "=== Bertrand Price Competition ===";
+print "";
+print "The Bertrand Paradox:";
+print "With just TWO firms competing on price,";
+print "equilibrium drives prices to marginal cost.";
+print "";
+
+solve BertrandCompetition;
+
+print "";
+print "Insight: Undercutting is always tempting.";
+print "Result: Race to the bottom destroys industry profits.";

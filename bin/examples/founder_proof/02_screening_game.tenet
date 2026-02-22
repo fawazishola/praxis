@@ -1,0 +1,111 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// SCREENING GAME: Passing the Test Before Being Asked
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// Screening is the inverse of signaling.
+// In signaling, the INFORMED party (founder) sends a signal.
+// In screening, the UNINFORMED party (investor) designs a test.
+//
+// The insight: Fawaz passed the hardest screening test
+// BEFORE any investor asked him to take it.
+//
+// ═══════════════════════════════════════════════════════════════════════════════
+
+print "═══════════════════════════════════════════════════════════════════";
+print "        SCREENING GAME: Passing the Test Before Being Asked        ";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+
+// Investors implicitly screen for:
+// 1. Technical execution ability
+// 2. Long-term commitment (not just chasing trends)
+// 3. First-principles thinking
+// 4. Ability to build infrastructure, not just features
+
+print "WHAT INVESTORS SCREEN FOR:";
+print "──────────────────────────────────────────────────────────────────";
+print "  ✓ Technical execution ability";
+print "  ✓ Long-term commitment";
+print "  ✓ First-principles thinking";
+print "  ✓ Infrastructure mindset (not feature chasing)";
+print "";
+
+game InvestorScreening {
+    players Investor, Founder
+    strategies ScreenHard, ScreenLight, PassAll, PassSome, Fail
+    
+    // Investors want to find "real" founders and filter "pretenders"
+    // Hard screens catch more pretenders but might miss good founders
+    // Light screens are faster but let more noise through
+    
+    payoff Investor {
+        (ScreenHard, PassAll): 100       // Found a real one
+        (ScreenHard, PassSome): 30       // Founder has gaps
+        (ScreenHard, Fail): 10           // Correctly filtered
+        (ScreenLight, PassAll): 70       // Might have missed issues
+        (ScreenLight, PassSome): 50      // Average case
+        (ScreenLight, Fail): -50         // Missed red flags
+    }
+    
+    payoff Founder {
+        (ScreenHard, PassAll): 100       // Proven beyond doubt
+        (ScreenHard, PassSome): 40       // Gaps exposed
+        (ScreenHard, Fail): 0            // Rejected
+        (ScreenLight, PassAll): 80       // Quick win
+        (ScreenLight, PassSome): 60      // Got through
+        (ScreenLight, Fail): 20          // Might retry elsewhere
+    }
+}
+
+print "THE SCREENING GAME:";
+solve InvestorScreening;
+
+print "";
+print "ANALYSIS:";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+
+// The screening tests Fawaz has already passed
+print "SCREENING TESTS FAWAZ HAS ALREADY PASSED:";
+print "";
+print "┌─────────────────────────────────────────────────────────────────┐";
+print "│ TEST 1: Can you build software?                                │";
+print "│ EVIDENCE: Tenet interpreter, Flux runtime                      │";
+print "│ VERDICT: ✓ PASS                                                │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ TEST 2: Can you build COMPLEX software?                        │";
+print "│ EVIDENCE: Lexer, parser, AST, interpreter, type system         │";
+print "│ VERDICT: ✓ PASS                                                │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ TEST 3: Can you ship developer tools?                          │";
+print "│ EVIDENCE: VS Code extension, syntax highlighting               │";
+print "│ VERDICT: ✓ PASS                                                │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ TEST 4: Can you think in systems?                              │";
+print "│ EVIDENCE: Axiom OS architecture, multi-project stack           │";
+print "│ VERDICT: ✓ PASS                                                │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ TEST 5: Can you communicate technical ideas?                   │";
+print "│ EVIDENCE: mdBook documentation, 22 pages, deployed             │";
+print "│ VERDICT: ✓ PASS                                                │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ TEST 6: Do you have long-term commitment?                      │";
+print "│ EVIDENCE: Multi-month project, not trend-chasing               │";
+print "│ VERDICT: ✓ PASS                                                │";
+print "└─────────────────────────────────────────────────────────────────┘";
+print "";
+
+print "═══════════════════════════════════════════════════════════════════";
+print "THE META-INSIGHT:";
+print "";
+print "Most founders WAIT for investors to screen them,";
+print "then scramble to pass the tests.";
+print "";
+print "Fawaz built the Axiom stack BEFORE any investor asked.";
+print "He didn't pass the screening test — he PRE-PASSED it.";
+print "";
+print "This demonstrates:";
+print "  • Intrinsic motivation (didn't need external validation)";
+print "  • Self-awareness (knew what skills matter)";
+print "  • Execution ability (actually did it, not just planned)";
+print "═══════════════════════════════════════════════════════════════════";

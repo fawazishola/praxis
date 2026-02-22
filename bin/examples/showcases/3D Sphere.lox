@@ -1,0 +1,56 @@
+// 3D Ray Traced Sphere in ASCII (Slow Render for Demo)
+// Each pixel does extra computation to slow down rendering
+
+fun sqrt(n) {
+  if (n < 0) return 0;
+  var x = n;
+  var y = 1;
+  var e = 0.0001;
+  while (x - y > e) {
+    x = (x + y) / 2;
+    y = n / x;
+  }
+  return x;
+}
+
+// Slow function - burns cycles for dramatic effect
+fun slow(val) {
+  var result = val;
+  for (var i = 0; i < 500; i = i + 1) {
+    result = sqrt(result * result);
+  }
+  return val;
+}
+
+print "Ray Tracing 3D Sphere...";
+print "";
+
+var h = 22;  // Canvas Height
+var w = 60;  // Canvas Width
+
+for (var y = 0; y < h; y = y + 1) {
+  var line = "";
+  var dy = (y / h) * 2 - 1; 
+
+  for (var x = 0; x < w; x = x + 1) {
+    var dx = ((x / w) * 2 - 1) * 1.8; 
+    var dist = sqrt(dx*dx + dy*dy);
+
+    // Slow down each pixel
+    slow(dist);
+
+    if (dist < 0.8) {
+      var z = sqrt(0.8*0.8 - dist*dist);
+      var brightness = (dx * 0.3) + (dy * 0.3) + (z * 0.8);
+      
+      if (brightness < 0.2) line = line + ".";
+      else if (brightness < 0.4) line = line + ":";
+      else if (brightness < 0.6) line = line + "*";
+      else if (brightness < 0.8) line = line + "o";
+      else line = line + "#";
+    } else {
+      line = line + " "; 
+    }
+  }
+  print line;
+}

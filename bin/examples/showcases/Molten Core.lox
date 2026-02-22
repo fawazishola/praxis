@@ -1,0 +1,104 @@
+// --- MATH HELPERS ---
+fun sqrt(n) {
+  if (n < 0) return 0;
+  var x = n; var y = 1; var e = 0.001;
+  while (x - y > e) { x = (x + y) / 2; y = n / x; }
+  return x;
+}
+fun abs(n) { if (n<0) return -n; return n; }
+fun max(a, b) { if (a>b) return a; return b; }
+
+// Delay for dramatic GIF effect
+fun delay() {
+  var waste = 0;
+  for (var i = 0; i < 50000; i = i + 1) {
+    waste = waste + sqrt(i * i);
+  }
+}
+
+// --- 3D VECTOR CLASS ---
+class Vec3 {
+  init(x, y, z) { this.x = x; this.y = y; this.z = z; }
+  add(v) { return Vec3(this.x+v.x, this.y+v.y, this.z+v.z); }
+  mul(s) { return Vec3(this.x*s, this.y*s, this.z*s); }
+  dot(v) { return this.x*v.x + this.y*v.y + this.z*v.z; }
+  length() { return sqrt(this.dot(this)); }
+  normalize() { var l = this.length(); return this.mul(1/l); }
+}
+
+// --- THE TEXT MASK ENGINE ---
+// Returns true if pixel (x,y) is part of the text "TENET"
+// We build letters using coordinate bounding boxes.
+fun isText(x, y) {
+  // Scaling: coordinates are 0-60 (x) and 0-15 (y)
+  // Text sits at y=5 to y=11
+  if (y < 5) return false;
+  if (y > 11) return false;
+
+  // LETTER T (x 2-8)
+  if (x > 2 and x < 9) {
+    if (y == 5) return true; // Top bar
+    if (x == 5) return true;  // Post
+  }
+
+  // LETTER E (x 11-16)
+  if (x > 10 and x < 17) {
+    if (x == 11) return true; // Spine
+    if (y == 5) return true; // Top
+    if (y == 8) return true; // Middle
+    if (y == 11) return true; // Bottom
+  }
+
+  // LETTER N (x 19-25)
+  if (x > 18 and x < 26) {
+    if (x == 19) return true; // Left Leg
+    if (x == 25) return true; // Right Leg
+    if (x - 19 == y - 5) return true; // Diagonal
+  }
+
+  // LETTER E (x 28-33)
+  if (x > 27 and x < 34) {
+    if (x == 28) return true; 
+    if (y == 5) return true;
+    if (y == 8) return true;
+    if (y == 11) return true;
+  }
+
+  // LETTER T (x 36-42)
+  if (x > 35 and x < 43) {
+    if (y == 5) return true; 
+    if (x == 39) return true;
+  }
+  
+  return false;
+}
+
+// --- THE 3D ENGINE ---
+print "Booting Core...";
+
+var width = 60;
+var height = 15;
+var light = Vec3(1, 1, -1).normalize();
+var spherePos = Vec3(0, 0, 4); // Sphere center
+var radius = 1.3;
+
+for (var y = 0; y < height; y = y + 1) {
+  var line = "";
+  
+  // Normalized Y (-1 to 1)
+  var v = (1.0 - 2.0 * y / height); 
+
+  for (var x = 0; x < width; x = x + 1) {
+    
+    // 1. CHECK FOR TEXT OVERLAY FIRST
+    if (isText(x, y)) {
+       line = line + "@"; // Bright white text
+    } else {
+       line = line + " ";
+    }
+  }
+  print line;
+  delay();
+}
+
+print "SYSTEM: ALIVE";

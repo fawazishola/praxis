@@ -1,0 +1,24 @@
+// XRPL Transaction Queue Scheduler
+// Tenet models the priority decision between a high-value escrow
+// and routine low-value transactions competing for ledger inclusion.
+
+game XRPLTransactionQueue {
+  players HighValueEscrow, RoutineTx
+  strategies ProcessNow, Queue
+
+  payoff HighValueEscrow {
+    (ProcessNow, ProcessNow): 10
+    (ProcessNow, Queue):       9
+    (Queue, ProcessNow):       2
+    (Queue, Queue):            5
+  }
+
+  payoff RoutineTx {
+    (ProcessNow, ProcessNow):  3
+    (ProcessNow, Queue):       6
+    (Queue, ProcessNow):       8
+    (Queue, Queue):            4
+  }
+}
+
+solve XRPLTransactionQueue;

@@ -1,0 +1,53 @@
+// ═══════════════════════════════════════════════════════════════
+// ARMS RACE
+// Two nations spend on weapons. Both end up poorer, equally safe.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Setup:
+//   - Two countries choose to Arm or Disarm
+//   - Arming is expensive but provides security
+//   - If both arm, they're as safe as before but poorer
+//   - If one disarms alone, they're vulnerable
+//
+// Classic example: Cold War between USA and USSR
+// ═══════════════════════════════════════════════════════════════
+
+var peace_dividend = 50;
+var arms_cost = 30;
+var vulnerability_loss = 100;
+
+game ArmsRace {
+    players Nation1, Nation2
+    strategies Arm, Disarm
+    
+    // Both Disarm: Peace! Maximum prosperity
+    // Both Arm: Safe but wasteful spending
+    // One Arms, One Disarms: Armed nation dominates
+    
+    payoff Nation1 {
+        (Disarm, Disarm): 50
+        (Disarm, Arm): -50
+        (Arm, Disarm): 70
+        (Arm, Arm): 0
+    }
+    
+    payoff Nation2 {
+        (Disarm, Disarm): 50
+        (Arm, Disarm): -50
+        (Disarm, Arm): 70
+        (Arm, Arm): 0
+    }
+}
+
+print "=== Arms Race ===";
+print "";
+print "The Security Dilemma:";
+print "  If they arm and I don't, I'm vulnerable.";
+print "  So I must arm... but then we're both poorer.";
+print "";
+
+solve ArmsRace;
+
+print "";
+print "Insight: Mutual Assured Destruction (MAD) is a Nash equilibrium.";
+print "Both sides would prefer peace, but neither can trust first.";

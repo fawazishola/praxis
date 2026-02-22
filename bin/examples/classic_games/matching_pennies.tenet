@@ -1,0 +1,53 @@
+// ═══════════════════════════════════════════════════════════════
+// MATCHING PENNIES (Zero-Sum Game)
+// Pure randomization is the only equilibrium.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Game:
+//   - Two players simultaneously show Heads or Tails
+//   - Matcher wins if coins match
+//   - Mismatcher wins if coins differ
+//
+// Key Insight: NO pure strategy equilibrium exists!
+// Any pure strategy can be exploited.
+//
+// Applications: Penalty kicks, poker bluffing, security games
+// ═══════════════════════════════════════════════════════════════
+
+game MatchingPennies {
+    players Matcher, Mismatcher
+    strategies Heads, Tails
+    
+    // Zero-sum: One's gain = Other's loss
+    
+    payoff Matcher {
+        (Heads, Heads): 1
+        (Heads, Tails): -1
+        (Tails, Heads): -1
+        (Tails, Tails): 1
+    }
+    
+    payoff Mismatcher {
+        (Heads, Heads): -1
+        (Heads, Tails): 1
+        (Tails, Heads): 1
+        (Tails, Tails): -1
+    }
+}
+
+print "=== Matching Pennies ===";
+print "";
+print "This is a ZERO-SUM game:";
+print "  If Matcher gains +1, Mismatcher loses -1";
+print "";
+
+solve MatchingPennies;
+
+print "";
+print "No Pure Nash Equilibrium exists!";
+print "";
+print "Mixed Strategy Equilibrium:";
+print "  Both players randomize 50/50";
+print "  Expected payoff: 0 for both";
+print "";
+print "Real-world example: Penalty kick direction in soccer.";

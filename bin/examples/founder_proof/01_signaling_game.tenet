@@ -1,0 +1,101 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// SIGNALING GAME: Why Building a DSL Proves Technical Capability
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// Based on Michael Spence's Job Market Signaling (Nobel Prize 2001)
+//
+// The insight: Credentials don't directly teach skills.
+// They SIGNAL capability because only capable people can obtain them.
+//
+// Building a programming language at 19 is the ultimate costly signal.
+//
+// ═══════════════════════════════════════════════════════════════════════════════
+
+print "═══════════════════════════════════════════════════════════════════";
+print "         SIGNALING GAME: The DSL as Proof of Capability            ";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+
+// The core insight: Signals work because they're COSTLY
+// A signal that anyone can fake is worthless
+// A signal that only capable people can produce is valuable
+
+print "THE SPENCE SIGNALING MODEL";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "A signal is valuable when:";
+print "  1. It's COSTLY to produce (time, effort, skill)";
+print "  2. It's MORE costly for low-ability types";
+print "  3. It's VERIFIABLE by observers";
+print "";
+
+// Cost comparison: Different founder signals
+var cost_pitch_deck = 10;       // Anyone can make a deck
+var cost_business_plan = 20;    // Requires some research
+var cost_mvp_nocode = 40;       // Requires execution
+var cost_mvp_code = 70;         // Requires technical skill
+var cost_build_dsl = 100;       // Requires deep CS knowledge
+
+print "SIGNAL COSTS (Effort Units):";
+print "  Pitch Deck:         10 (anyone can do this)";
+print "  Business Plan:      20 (requires research)";
+print "  No-Code MVP:        40 (requires execution)";
+print "  Coded MVP:          70 (requires technical skill)";
+print "  Build a DSL:        100 (requires compiler knowledge)";
+print "";
+
+game FounderSignalingGame {
+    players TechFounder, NonTechFounder
+    strategies BuildDSL, BuildMVP, WritePlan, MakeDeck
+    
+    // Payoffs represent probability of getting funded * valuation
+    // TechFounder can produce all signals; NonTechFounder cannot build DSL
+    
+    payoff TechFounder {
+        (BuildDSL, MakeDeck): 95         // Separating equilibrium
+        (BuildDSL, WritePlan): 90        // Still separated
+        (BuildMVP, BuildMVP): 60         // Pooling - both can do this
+        (WritePlan, WritePlan): 30       // Pooling - indistinguishable
+        (MakeDeck, MakeDeck): 20         // Pooling - no differentiation
+    }
+    
+    payoff NonTechFounder {
+        (BuildDSL, MakeDeck): 0          // Cannot produce this signal
+        (BuildDSL, WritePlan): 0         // Cannot produce this signal
+        (BuildMVP, BuildMVP): 60         // Can compete here
+        (WritePlan, WritePlan): 30       // Can compete here
+        (MakeDeck, MakeDeck): 20         // Can compete here
+    }
+}
+
+print "THE GAME:";
+solve FounderSignalingGame;
+
+print "";
+print "ANALYSIS:";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "► BuildDSL creates a SEPARATING EQUILIBRIUM";
+print "  - Only technical founders can produce this signal";
+print "  - NonTechFounder's payoff for BuildDSL = 0 (impossible)";
+print "  - This GUARANTEES differentiation";
+print "";
+print "► Lower signals create POOLING EQUILIBRIA";
+print "  - Both types can make pitch decks";
+print "  - Investors can't distinguish quality from noise";
+print "  - Expected value is lower for everyone";
+print "";
+
+// The meta-point
+print "═══════════════════════════════════════════════════════════════════";
+print "THE META-INSIGHT:";
+print "";
+print "Fawaz didn't just claim technical ability.";
+print "He produced an UNFAKEABLE signal: a working DSL.";
+print "";
+print "This is the equivalent of a PhD thesis, completed at 19,";
+print "without anyone asking for it.";
+print "";
+print "The signal is costly, verifiable, and separating.";
+print "Game theory proves it's the optimal credentialing strategy.";
+print "═══════════════════════════════════════════════════════════════════";

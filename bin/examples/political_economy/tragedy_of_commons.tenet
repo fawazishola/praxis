@@ -1,0 +1,51 @@
+// ═══════════════════════════════════════════════════════════════
+// TRAGEDY OF THE COMMONS
+// Shared resources get over-exploited when everyone acts selfishly.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Setup:
+//   - Two herders share a common grazing field
+//   - Each can choose to Graze (exploit) or Conserve
+//   - If both Graze, the field degrades and future value drops
+//
+// This model explains: overfishing, pollution, climate change
+// ═══════════════════════════════════════════════════════════════
+
+var cow_value = 10;
+var degradation_cost = 8;
+
+game TragediCommons {
+    players HerderA, HerderB
+    strategies Graze, Conserve
+    
+    // Conserve + Conserve: Field stays healthy, no immediate profit
+    // Graze + Conserve: Grazer gets full value, field slightly damaged
+    // Graze + Graze: Both graze but field is ruined, profit drops
+    
+    payoff HerderA {
+        (Conserve, Conserve): 5
+        (Conserve, Graze): 0
+        (Graze, Conserve): 10
+        (Graze, Graze): 2
+    }
+    
+    payoff HerderB {
+        (Conserve, Conserve): 5
+        (Graze, Conserve): 0
+        (Conserve, Graze): 10
+        (Graze, Graze): 2
+    }
+}
+
+print "=== Tragedy of the Commons ===";
+print "";
+print "The Dilemma:";
+print "  If I conserve and you graze, I get nothing.";
+print "  But if we both graze, the resource collapses.";
+print "";
+
+solve TragediCommons;
+
+print "";
+print "Insight: Individual rationality leads to collective ruin.";
+print "Solutions: Property rights, regulation, or social norms.";

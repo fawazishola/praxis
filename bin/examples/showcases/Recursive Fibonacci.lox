@@ -1,0 +1,11 @@
+// Define the recursive function
+fun fib(n) {
+  if (n < 2) return n;
+  return fib(n - 2) + fib(n - 1);
+}
+
+// Run a loop to print the sequence
+print "Generating Fibonacci Sequence...";
+for (var i = 0; i < 15; i = i + 1) {
+  print fib(i);
+}

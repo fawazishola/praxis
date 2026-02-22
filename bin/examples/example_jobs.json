@@ -1,0 +1,26 @@
+[
+    {
+        "name": "compute_fibonacci",
+        "priority": "HIGH",
+        "cpu_req": 2,
+        "mem_req": 1024,
+        "duration_est": 10,
+        "command": "python3 -c 'def fib(n): return n if n < 2 else fib(n-1) + fib(n-2); print(f\"Fib(30) = {fib(30)}\")'"
+    },
+    {
+        "name": "process_data",
+        "priority": "MED",
+        "cpu_req": 1,
+        "mem_req": 2048,
+        "duration_est": 5,
+        "command": "echo 'Processing data...'; sleep 2; echo 'Data processed successfully'"
+    },
+    {
+        "name": "backup_files",
+        "priority": "LOW",
+        "cpu_req": 1,
+        "mem_req": 512,
+        "duration_est": 15,
+        "command": "echo 'Starting backup...'; sleep 3; echo 'Backup complete: 1024 files copied'"
+    }
+]

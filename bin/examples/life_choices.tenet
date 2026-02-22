@@ -1,0 +1,26 @@
+// Decisions: Stay in School vs Drop Out
+// Modeled against an uncertain Economy
+
+game EducationDecision {
+    players Student, Economy
+    strategies StayInSchool, DropOut
+    
+    // Economy naturally fluctuates (modeled as strategies here)
+    // We treating 'Economy' as a player to visualize the risk matrix
+    
+    payoff Student {
+        (StayInSchool, StayInSchool): 100  // High skills + Degree
+        (StayInSchool, DropOut): -50       // Syntax quirk: Mapping 'DropOut' to Economy means 'Recession' here
+        (DropOut, StayInSchool): 20        // Low debt, immediate job
+        (DropOut, DropOut): -10            // Unskilled in recession
+    }
+    
+    payoff Economy {
+        // Economy doesn't care (dummy payoffs)
+        (StayInSchool, StayInSchool): 0
+        (StayInSchool, DropOut): 0
+        (DropOut, StayInSchool): 0
+        (DropOut, DropOut): 0
+    }
+}
+solve EducationDecision;

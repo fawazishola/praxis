@@ -1,0 +1,55 @@
+// ═══════════════════════════════════════════════════════════════
+// CHICKEN (Hawk-Dove Game)
+// Two players race toward each other. Who swerves first?
+// ═══════════════════════════════════════════════════════════════
+//
+// Applications:
+//   - Nuclear brinkmanship (Cuban Missile Crisis)
+//   - Labor strikes and negotiations
+//   - Corporate takeover battles
+//
+// Key insight: The player who credibly commits to NOT swerve wins.
+// ═══════════════════════════════════════════════════════════════
+
+var win_value = 10;
+var lose_face = -5;
+var crash_cost = -100;
+
+game Chicken {
+    players Driver1, Driver2
+    strategies Straight, Swerve
+    
+    // Both Swerve: Tie, no shame
+    // One Straight, One Swerves: Straight wins (they're "chicken")
+    // Both Straight: CRASH - catastrophic loss
+    
+    payoff Driver1 {
+        (Swerve, Swerve): 0
+        (Swerve, Straight): -5
+        (Straight, Swerve): 10
+        (Straight, Straight): -100
+    }
+    
+    payoff Driver2 {
+        (Swerve, Swerve): 0
+        (Straight, Swerve): -5
+        (Swerve, Straight): 10
+        (Straight, Straight): -100
+    }
+}
+
+print "=== Game of Chicken ===";
+print "";
+print "The Brinkmanship Dilemma:";
+print "  - If I swerve, I lose face";
+print "  - If they swerve, I win big";
+print "  - If neither swerves... disaster";
+print "";
+
+solve Chicken;
+
+print "";
+print "Nash Equilibria: (Straight, Swerve) and (Swerve, Straight)";
+print "But which one? That's the dangerous question.";
+print "";
+print "Historical Example: Cuban Missile Crisis, 1962";

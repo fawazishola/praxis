@@ -1,0 +1,60 @@
+// ═══════════════════════════════════════════════════════════════
+// PRISONER'S DILEMMA
+// The most famous game in game theory.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Story:
+//   Two criminals are interrogated separately.
+//   Each can Cooperate (stay silent) or Defect (rat out partner).
+//
+// The Tragedy:
+//   Mutual cooperation is best for both.
+//   But individual incentives drive both to defect.
+//
+// This pattern appears EVERYWHERE:
+//   - Arms races, climate change, overfishing
+//   - Price wars, doping in sports, tax evasion
+// ═══════════════════════════════════════════════════════════════
+
+// Payoff parameters (tweak these to explore variants)
+var reward = 3;       // Mutual cooperation
+var temptation = 5;   // I defect, you cooperate
+var sucker = 0;       // I cooperate, you defect
+var punishment = 1;   // Mutual defection
+
+game PrisonersDilemma {
+    players Alice, Bob
+    strategies Cooperate, Defect
+    
+    // Classic payoff structure: T > R > P > S
+    
+    payoff Alice {
+        (Cooperate, Cooperate): 3
+        (Cooperate, Defect): 0
+        (Defect, Cooperate): 5
+        (Defect, Defect): 1
+    }
+    
+    payoff Bob {
+        (Cooperate, Cooperate): 3
+        (Defect, Cooperate): 0
+        (Cooperate, Defect): 5
+        (Defect, Defect): 1
+    }
+}
+
+print "=== Prisoner's Dilemma ===";
+print "";
+print "Payoff Matrix:";
+print "                Bob: Coop    Bob: Defect";
+print "  Alice: Coop     (3,3)        (0,5)";
+print "  Alice: Defect   (5,0)        (1,1)";
+print "";
+
+solve PrisonersDilemma;
+
+print "";
+print "Nash Equilibrium: (Defect, Defect) with payoffs (1, 1)";
+print "Pareto Optimal:   (Cooperate, Cooperate) with payoffs (3, 3)";
+print "";
+print "The tragedy: Rational self-interest leads to worse outcomes.";

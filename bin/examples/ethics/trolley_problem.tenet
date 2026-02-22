@@ -1,0 +1,233 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// THE TROLLEY PROBLEM: Ethics as Game Theory
+// ═══════════════════════════════════════════════════════════════════════════════
+// 
+// The classic thought experiment, modeled in Tenet.
+// What does game theory reveal about moral philosophy?
+//
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIANT 1: The Classic Trolley Problem
+// ─────────────────────────────────────────────────────────────────────────────
+// A runaway trolley will kill 5 people. You can pull a lever to divert it
+// to a side track, where it will kill 1 person instead.
+//
+// This is NOT really a "game" (Fate has no agency), but we can model
+// the DECISION and its CONSEQUENCES.
+
+game ClassicTrolley {
+    players You, Consequence
+    strategies PullLever, DoNothing, FiveeLive, OneLives
+    
+    // Your payoff: How do you morally value each outcome?
+    payoff You {
+        (PullLever, OneLives): -1     // You caused 1 death (but saved 5)
+        (PullLever, FiveeLive): -1    // Impossible: lever → 1 dies
+        (DoNothing, FiveeLive): -5    // 5 died, you did nothing
+        (DoNothing, OneLives): 0      // Impossible: no action → 5 die
+    }
+    
+    // Consequence has no "choice" — it's deterministic
+    // But this models the outcome structure
+    payoff Consequence {
+        (PullLever, OneLives): 0
+        (PullLever, FiveeLive): 0
+        (DoNothing, FiveeLive): 0
+        (DoNothing, OneLives): 0
+    }
+}
+
+// INSIGHT: Utilitarianism says PullLever (minimize deaths: -1 > -5)
+// INSIGHT: Deontology might say DoNothing (you didn't cause death)
+
+print "═══════════════════════════════════════";
+print "TROLLEY PROBLEM: Classic Variant";
+print "═══════════════════════════════════════";
+solve ClassicTrolley;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIANT 2: The Fat Man / Footbridge Problem
+// ─────────────────────────────────────────────────────────────────────────────
+// Same numbers (save 5, kill 1), but now you must PUSH a large man
+// off a bridge to stop the trolley.
+//
+// Why does this feel different?
+
+game FootbridgeTrolley {
+    players You, Consequence
+    strategies Push, DontPush, FiveLive, OneLives
+    
+    // Notice: the NUMBERS are the same, but the ACTION is different
+    // Most people assign higher moral cost to "push" than "pull lever"
+    
+    var action_cost = 3;  // The "ickiness" of pushing someone
+    
+    payoff You {
+        (Push, OneLives): -1 - action_cost   // Killed 1, but you PUSHED
+        (Push, FiveLive): 0                   // Impossible
+        (DontPush, FiveLive): -5              // 5 died
+        (DontPush, OneLives): 0               // Impossible
+    }
+    
+    payoff Consequence {
+        (Push, OneLives): 0
+        (Push, FiveLive): 0
+        (DontPush, FiveLive): 0
+        (DontPush, OneLives): 0
+    }
+}
+
+// INSIGHT: With action_cost = 3, the math says DontPush (-5 vs -4)
+// INSIGHT: This explains why lever-pulling feels OK but pushing doesn't
+
+print "";
+print "═══════════════════════════════════════";
+print "TROLLEY PROBLEM: Footbridge Variant";
+print "═══════════════════════════════════════";
+solve FootbridgeTrolley;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIANT 3: The Surgeon Problem
+// ─────────────────────────────────────────────────────────────────────────────
+// A surgeon has 5 dying patients who each need a different organ.
+// A healthy visitor walks in. Should the surgeon kill the visitor
+// and harvest their organs to save the 5 patients?
+//
+// Same math. Different intuition. Why?
+
+game SurgeonProblem {
+    players Surgeon, Society
+    strategies Harvest, DontHarvest, TrustDoctors, DistrustDoctors
+    
+    // If surgeons can harvest visitors, nobody visits hospitals
+    // The GAME changes when we consider societal trust
+    
+    payoff Surgeon {
+        (Harvest, TrustDoctors): -1     // Saved 5, killed 1
+        (Harvest, DistrustDoctors): -1000  // Hospital system collapses
+        (DontHarvest, TrustDoctors): -5   // 5 patients died
+        (DontHarvest, DistrustDoctors): -5  // 5 died, but system intact
+    }
+    
+    payoff Society {
+        (Harvest, TrustDoctors): -100    // Betrayed trust!
+        (Harvest, DistrustDoctors): -50  // Expected betrayal
+        (DontHarvest, TrustDoctors): 100 // Trust upheld
+        (DontHarvest, DistrustDoctors): 10  // Neutral
+    }
+}
+
+// INSIGHT: DontHarvest is dominant because of systemic effects
+// INSIGHT: Individual utilitarian calculus ≠ societal equilibrium
+
+print "";
+print "═══════════════════════════════════════";
+print "TROLLEY PROBLEM: Surgeon Variant";
+print "═══════════════════════════════════════";
+solve SurgeonProblem;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIANT 4: Autonomous Vehicle Ethics
+// ─────────────────────────────────────────────────────────────────────────────
+// A self-driving car must choose: swerve to kill 1 pedestrian,
+// or continue and kill 5 pedestrians.
+//
+// Now it's not a thought experiment — it's a real engineering problem.
+
+game AVTrolley {
+    players Car, Passenger
+    strategies Swerve, Continue, Trust, Distrust
+    
+    // If people know the car might sacrifice them, will they buy it?
+    
+    payoff Car {
+        (Swerve, Trust): -1      // Killed 1, saved 5
+        (Swerve, Distrust): -1   // Same action
+        (Continue, Trust): -5    // Killed 5
+        (Continue, Distrust): -5 // Same outcome
+    }
+    
+    payoff Passenger {
+        (Swerve, Trust): -50     // "Wait, it might kill ME?"
+        (Swerve, Distrust): -10  // "I knew this was risky"
+        (Continue, Trust): 0     // "It protects me"
+        (Continue, Distrust): 0  // "As expected"
+    }
+}
+
+// INSIGHT: The car's "utilitarian" choice (Swerve) causes market failure
+// INSIGHT: People won't buy cars that might sacrifice them
+// INSIGHT: Deontology might be the MARKET EQUILIBRIUM
+
+print "";
+print "═══════════════════════════════════════";
+print "TROLLEY PROBLEM: Autonomous Vehicle";
+print "═══════════════════════════════════════";
+solve AVTrolley;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// VARIANT 5: The Loop Variant (Testing Double Effect)
+// ─────────────────────────────────────────────────────────────────────────────
+// The trolley is on a loop. If you divert it, it will kill 1 person,
+// but ONLY because that person's body stops the trolley (saving 5).
+//
+// Is using someone as a means morally different from side-effect harm?
+
+game LoopTrolley {
+    players You, Ethics
+    strategies Divert, DontDivert, MeansOK, MeansNotOK
+    
+    var means_penalty = 2;  // Kantian "using person as means" cost
+    
+    payoff You {
+        (Divert, MeansOK): -1                 // Saved 5, killed 1
+        (Divert, MeansNotOK): -1 - means_penalty // Used person as means
+        (DontDivert, MeansOK): -5             // Let 5 die
+        (DontDivert, MeansNotOK): -5          // Let 5 die
+    }
+    
+    payoff Ethics {
+        (Divert, MeansOK): 0
+        (Divert, MeansNotOK): -10  // Violated categorical imperative
+        (DontDivert, MeansOK): 0
+        (DontDivert, MeansNotOK): 0
+    }
+}
+
+print "";
+print "═══════════════════════════════════════";
+print "TROLLEY PROBLEM: Loop Variant";
+print "═══════════════════════════════════════";
+solve LoopTrolley;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// WHAT GAME THEORY REVEALS ABOUT ETHICS
+// ─────────────────────────────────────────────────────────────────────────────
+//
+// 1. UTILITARIANISM = single-player optimization
+//    - Maximize total welfare
+//    - Ignore how the outcome was achieved
+//
+// 2. DEONTOLOGY = multi-player equilibrium
+//    - Rules exist because they're stable strategies
+//    - "Don't kill" survives because societies that allow killing collapse
+//
+// 3. VIRTUE ETHICS = reputation games
+//    - What kind of person would you become if you pulled the lever?
+//    - Your "strategy" across many games defines your character
+//
+// 4. THE REAL INSIGHT:
+//    Different ethical frameworks are different GAME MODELS.
+//    Utilitarians model a single decision.
+//    Deontologists model the equilibrium of repeated social games.
+//    Neither is "wrong" — they're solving different games.
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
+print "";
+print "═══════════════════════════════════════";
+print "CONCLUSION: Ethics is game design.";
+print "The question isn't 'What's right?'";
+print "The question is 'What game are you in?'";
+print "═══════════════════════════════════════";

@@ -1,0 +1,118 @@
+// ═══════════════════════════════════════════════════════════════════════════════
+// THE COMPOUND RETURNS GAME: Youth as a Strategic Advantage
+// ═══════════════════════════════════════════════════════════════════════════════
+//
+// Investors often worry about young founders' "lack of experience."
+// But this ignores the COMPOUNDING effect.
+//
+// A 19-year-old founder has 40+ years of career runway.
+// A 35-year-old founder has 25 years.
+// The math changes everything.
+//
+// ═══════════════════════════════════════════════════════════════════════════════
+
+print "═══════════════════════════════════════════════════════════════════";
+print "       THE COMPOUND RETURNS GAME: Youth as Strategic Advantage      ";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+
+// Define the players
+var fawaz_age = 19;
+var typical_founder_age = 35;
+var career_end = 60;
+
+var fawaz_runway = career_end - fawaz_age;        // 41 years
+var typical_runway = career_end - typical_founder_age;  // 25 years
+
+print "CAREER RUNWAY COMPARISON:";
+print "──────────────────────────────────────────────────────────────────";
+print "  Fawaz (age 19):          41 years of compounding";
+print "  Typical Founder (35):    25 years of compounding";
+print "";
+
+// Compound growth function
+// Skills, network, capital, reputation all compound
+var annual_growth_rate = 0.15;  // 15% improvement per year
+
+// Calculate compound multipliers
+// At 15% annual growth:
+// 25 years: (1.15)^25 = 32.9x
+// 41 years: (1.15)^41 = 267.9x
+
+print "COMPOUND MULTIPLIERS (at 15% annual growth):";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "  Typical Founder (25 years): 32.9x multiplier";
+print "  Fawaz (41 years):           267.9x multiplier";
+print "";
+print "  RATIO: 267.9 / 32.9 = 8.1x MORE POTENTIAL VALUE";
+print "";
+
+game CompoundingAdvantage {
+    players YoungFounder, ExperiencedFounder
+    strategies StartNow, WaitForExperience
+    
+    // Starting value (arbitrary units of capability/output)
+    // Payoffs represent lifetime expected value
+    
+    payoff YoungFounder {
+        (StartNow, StartNow): 268        // Full 41-year compound
+        (StartNow, WaitForExperience): 268  // Irrelevant - years don't wait
+        (WaitForExperience, StartNow): 100  // Waited 10 years, only 31 left
+    }
+    
+    payoff ExperiencedFounder {
+        (StartNow, StartNow): 33         // 25-year compound
+        (StartNow, WaitForExperience): 33  // They started regardless
+        (WaitForExperience, StartNow): 33  // Same - can't get younger
+    }
+}
+
+print "THE COMPOUNDING GAME:";
+solve CompoundingAdvantage;
+
+print "";
+print "ANALYSIS:";
+print "──────────────────────────────────────────────────────────────────";
+print "";
+print "StartNow is the DOMINANT STRATEGY for the young founder.";
+print "Every year waited is 15% compound growth LOST.";
+print "";
+print "The 'experience gap' shrinks rapidly:";
+print "  Year 0: Young founder has less experience";
+print "  Year 5: Gap is narrowing";
+print "  Year 10: Gap is mostly closed";
+print "  Year 15+: Young founder pulls ahead (more learning done)";
+print "";
+
+// The real comparison
+print "═══════════════════════════════════════════════════════════════════";
+print "THE REAL BET:";
+print "═══════════════════════════════════════════════════════════════════";
+print "";
+print "An investor considering Fawaz isn't betting on TODAY's output.";
+print "They're betting on the INTEGRAL under his learning curve.";
+print "";
+print "Consider two scenarios:";
+print "";
+print "┌─────────────────────────────────────────────────────────────────┐";
+print "│ SCENARIO A: Fawaz at age 19                                    │";
+print "│ • Current capability: 7/10 (still learning)                    │";
+print "│ • Runway: 41 years                                              │";
+print "│ • Growth rate: 15%/year (high curiosity, fast learning)        │";
+print "│ • Expected lifetime output: 267.9 units                        │";
+print "├─────────────────────────────────────────────────────────────────┤";
+print "│ SCENARIO B: Experienced Founder at 35                          │";
+print "│ • Current capability: 9/10 (polished)                          │";
+print "│ • Runway: 25 years                                              │";
+print "│ • Growth rate: 10%/year (slower learning, more responsibilities)│";
+print "│ • Expected lifetime output: 98.3 units                         │";
+print "└─────────────────────────────────────────────────────────────────┘";
+print "";
+print "Even with LOWER current capability,";
+print "the young founder has 2.7x more expected lifetime output.";
+print "";
+print "This is why Peter Thiel funds 19-year-olds.";
+print "This is why 1517 focuses on young founders.";
+print "The math favors the long runway.";
+print "═══════════════════════════════════════════════════════════════════";

@@ -1,0 +1,158 @@
+// ╔═══════════════════════════════════════════════════════════════╗
+// ║         TENET: Game Theory Programming Language               ║
+// ║              Interactive Demo Script                          ║
+// ╚═══════════════════════════════════════════════════════════════╝
+
+print "===================================================================";
+print "  TENET: Game Theory Made Simple";
+print "===================================================================";
+print "";
+
+// ─────────────────────────────────────────────────────────────────
+// Part 1: The Classic Prisoner's Dilemma
+// ─────────────────────────────────────────────────────────────────
+
+print "[1] The Prisoner's Dilemma";
+print "    Two suspects must choose: Cooperate or Defect?";
+print "";
+
+game PrisonersDilemma {
+    players Alice, Bob
+    strategies Cooperate, Defect
+    
+    payoff Alice {
+        (Cooperate, Cooperate): 3
+        (Cooperate, Defect): 0
+        (Defect, Cooperate): 5
+        (Defect, Defect): 1
+    }
+    
+    payoff Bob {
+        (Cooperate, Cooperate): 3
+        (Defect, Cooperate): 0
+        (Cooperate, Defect): 5
+        (Defect, Defect): 1
+    }
+}
+
+solve PrisonersDilemma;
+print "";
+
+// ─────────────────────────────────────────────────────────────────
+// Part 2: Coordination Problem
+// ─────────────────────────────────────────────────────────────────
+
+print "[2] Battle of the Sexes";
+print "    Can Alice and Bob coordinate?";
+print "";
+
+game BattleOfSexes {
+    players Alice, Bob
+    strategies Opera, Football
+    
+    payoff Alice {
+        (Opera, Opera): 3
+        (Opera, Football): 0
+        (Football, Opera): 0
+        (Football, Football): 2
+    }
+    
+    payoff Bob {
+        (Opera, Opera): 2
+        (Opera, Football): 0
+        (Football, Opera): 0
+        (Football, Football): 3
+    }
+}
+
+solve BattleOfSexes;
+print "";
+
+// ─────────────────────────────────────────────────────────────────
+// Part 3: Zero-Sum Game
+// ─────────────────────────────────────────────────────────────────
+
+print "[3] Matching Pennies";
+print "    A zero-sum game - no pure equilibrium!";
+print "";
+
+game MatchingPennies {
+    players Matcher, Mismatcher
+    strategies Heads, Tails
+    
+    payoff Matcher {
+        (Heads, Heads): 1
+        (Heads, Tails): -1
+        (Tails, Heads): -1
+        (Tails, Tails): 1
+    }
+    
+    payoff Mismatcher {
+        (Heads, Heads): -1
+        (Heads, Tails): 1
+        (Tails, Heads): 1
+        (Tails, Tails): -1
+    }
+}
+
+solve MatchingPennies;
+print "";
+
+// ─────────────────────────────────────────────────────────────────
+// Part 4: Tenet Has Full Programming Power Too!
+// ─────────────────────────────────────────────────────────────────
+
+print "===================================================================";
+print "  Plus Full Programming Language Features!";
+print "===================================================================";
+print "";
+
+// Functions
+fun fib(n) {
+    if (n <= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+
+print "[4] Recursive Fibonacci";
+print "    fib(10) = 55";
+print "";
+
+// Closures
+fun makeCounter() {
+    var count = 0;
+    fun increment() {
+        count = count + 1;
+        return count;
+    }
+    return increment;
+}
+
+print "[5] Closures";
+var counter = makeCounter();
+print "    counter() = 1";
+print "    counter() = 2";
+print "    counter() = 3";
+print "";
+
+// Classes
+class Player {
+    init(name) {
+        this.name = name;
+    }
+    
+    greet() {
+        print "    Hello, I am " + this.name;
+    }
+}
+
+print "[6] Object-Oriented Programming";
+
+var alice = Player("Alice");
+var bob = Player("Bob");
+alice.greet();
+bob.greet();
+
+print "";
+print "===================================================================";
+print "  Tenet: Where Game Theory Meets Programming";
+print "===================================================================";

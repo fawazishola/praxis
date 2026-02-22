@@ -1,0 +1,52 @@
+// ═══════════════════════════════════════════════════════════════
+// ULTIMATUM GAME
+// Player A offers a split. Player B accepts or rejects.
+// If rejected, BOTH get nothing.
+// ═══════════════════════════════════════════════════════════════
+//
+// The Rational Prediction:
+//   A offers $1, B accepts (any money > no money)
+//
+// What Actually Happens:
+//   B rejects "unfair" offers (< 30%)
+//   A anticipates this, offers 40-50%
+//
+// This model tests: Fairness, spite, and social preferences
+// ═══════════════════════════════════════════════════════════════
+
+var pot = 100;
+
+game UltimatumGame {
+    players Proposer, Responder
+    strategies Fair, Unfair, Accept, Reject
+    
+    // Proposer offers Fair (50/50) or Unfair (80/20)
+    // Responder Accepts or Rejects
+    
+    payoff Proposer {
+        (Fair, Accept): 50
+        (Fair, Reject): 0
+        (Unfair, Accept): 80
+        (Unfair, Reject): 0
+    }
+    
+    payoff Responder {
+        (Fair, Accept): 50
+        (Fair, Reject): 0
+        (Unfair, Accept): 20
+        (Unfair, Reject): 0
+    }
+}
+
+print "=== Ultimatum Game ===";
+print "";
+print "The Fairness Puzzle:";
+print "  Rational responders should accept any positive offer.";
+print "  But real humans reject 'insulting' offers.";
+print "";
+
+solve UltimatumGame;
+
+print "";
+print "Insight: Humans sacrifice money to punish unfairness.";
+print "This challenges pure rationality assumptions in economics.";
