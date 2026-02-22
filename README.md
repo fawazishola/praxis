@@ -101,7 +101,7 @@ Praxis operates on a strict **Neurosymbolic pipeline**:
 
 | Layer | Component | Role |
 |---|---|---|
-| Neural | Gemini 2.0 Flash | Natural language → JSON |
+| Neural | Gemini 3.1 Pro | Natural language → JSON |
 | Symbolic | **Flux** (C99 VM) | Deterministic math verification |
 | Scheduler | **Tenet** | Nash-Equilibrium task prioritization |
 | Output | `xrpl.js` | Broadcast verified tx to XRPL Testnet |
@@ -155,7 +155,7 @@ Visit https://www.praxi.live/ to interact with the Zero-Hallucination Gateway.
 
 ---
 
-## 🧱 Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |---|---|
