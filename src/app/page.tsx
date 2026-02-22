@@ -704,8 +704,8 @@ function IdleState({ side }: { side: "left" | "right" }) {
   if (side === "left") {
     return (
       <div style={{ color: "#2d3f55", display: "flex", flexDirection: "column", gap: "6px" }}>
-        <div>// Waiting for query submission...</div>
-        <div>// LLM stream will appear here</div>
+        <div>{'// Waiting for query submission...'}</div>
+        <div>{'// LLM stream will appear here'}</div>
         <div style={{ marginTop: "24px", color: "#1e2d40" }}>────────────────────────────</div>
         <div style={{ color: "#1e2d40" }}>LAYER 1: PROBABILISTIC AI</div>
         <div style={{ color: "#1e2d40" }}>Model: Qwen-2.5 / Claude-3.5</div>
@@ -719,8 +719,8 @@ function IdleState({ side }: { side: "left" | "right" }) {
   }
   return (
     <div style={{ color: "#2d3f55", display: "flex", flexDirection: "column", gap: "6px" }}>
-      <div>// Flux enclave standing by...</div>
-      <div>// C99 verification stack loaded</div>
+      <div>{'// Flux enclave standing by...'}</div>
+      <div>{'// C99 verification stack loaded'}</div>
       <div style={{ marginTop: "24px", color: "#1e2d40" }}>────────────────────────────</div>
       <div style={{ color: "#1e2d40" }}>LAYER 2: DETERMINISTIC VM</div>
       <div style={{ color: "#1e2d40" }}>Compiler: Flux C99 v3.1</div>
