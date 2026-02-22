@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
         };
 
         // ── Phase 1: Offline syntax validation (avoids malformed network calls)
-        const syntaxResult = validateEscrowCreate(escrowTx as unknown as Record<string, unknown>);
+        const syntaxResult = validateEscrowCreate(escrowTx);
         if (!syntaxResult.valid) {
             console.warn("[XRPL] Offline validation failed:", syntaxResult.errors);
             return NextResponse.json(

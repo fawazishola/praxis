@@ -30,7 +30,6 @@ const DEFAULT_OPTIONS: PoolOptions = {
     endpoints: [
         "wss://s.altnet.rippletest.net:51233",
         "wss://testnet.xrpl-labs.com",
-        "wss://xrplcluster.com",
     ],
     maxConnections: 3,
     connectTimeoutMs: 15_000,

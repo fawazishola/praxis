@@ -10,16 +10,6 @@ export interface ValidationResult {
     warnings: string[];
 }
 
-const VALID_TRANSACTION_TYPES = [
-    "EscrowCreate",
-    "EscrowFinish",
-    "EscrowCancel",
-    "Payment",
-    "TrustSet",
-    "OfferCreate",
-    "OfferCancel",
-] as const;
-
 /**
  * Validates that a string is a valid XRP Ledger classic address.
  */
@@ -45,7 +35,7 @@ function isValidDropsAmount(drops: string): boolean {
  * Validates an EscrowCreate transaction payload offline.
  * Checks structure, types, addresses, amounts, and basic field presence.
  */
-export function validateEscrowCreate(tx: Record<string, unknown>): ValidationResult {
+export function validateEscrowCreate(tx: xrpl.EscrowCreate | Record<string, unknown>): ValidationResult {
     const errors: string[] = [];
     const warnings: string[] = [];
 
