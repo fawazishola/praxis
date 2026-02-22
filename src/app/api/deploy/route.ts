@@ -1,66 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import * as xrpl from "xrpl";
-
-// ── Testnet RPC endpoints to try in order
-const RPC_ENDPOINTS = [
-    "wss://s.altnet.rippletest.net:51233",
-    "wss://testnet.xrpl-labs.com",
-    "wss://xrplcluster.com",
-];
-
-const MAX_RETRIES = 3;
-const RETRY_DELAY_MS = 2000;
-const CONNECT_TIMEOUT_MS = 15000;
-
-async function connectWithTimeout(client: xrpl.Client, timeoutMs: number): Promise<void> {
-    return new Promise((resolve, reject) => {
-        const timer = setTimeout(() => {
-            reject(new Error(`Connection timed out after ${timeoutMs}ms`));
-        }, timeoutMs);
-        client.connect().then(() => {
-            clearTimeout(timer);
-            resolve();
-        }).catch((err) => {
-            clearTimeout(timer);
-            reject(err);
-        });
-    });
-}
-
-async function connectWithRetry(): Promise<xrpl.Client> {
-    const envRpc = process.env.NEXT_PUBLIC_XRPL_RPC;
-    const endpoints = envRpc ? [envRpc, ...RPC_ENDPOINTS.filter(e => e !== envRpc)] : RPC_ENDPOINTS;
-
-    let lastError: Error | null = null;
-
-    for (const rpc of endpoints) {
-        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-            try {
-                console.log(`[XRPL] Connecting to ${rpc} (attempt ${attempt}/${MAX_RETRIES})...`);
-                const client = new xrpl.Client(rpc);
-                await connectWithTimeout(client, CONNECT_TIMEOUT_MS);
-                console.log(`[XRPL] Connected to ${rpc}`);
-                return client;
-            } catch (err: any) {
-                lastError = err;
-                console.warn(`[XRPL] Failed to connect to ${rpc} (attempt ${attempt}):`, err.message);
-                if (attempt < MAX_RETRIES) {
-                    await new Promise(r => setTimeout(r, RETRY_DELAY_MS));
-                }
-            }
-        }
-    }
-    throw new Error(`Failed to connect to any XRPL endpoint after retrying. Last error: ${lastError?.message}`);
-}
+import { validateEscrowCreate } from "@/lib/xrpl-validator";
+import { validateEscrowTiming } from "@/lib/xrpl-escrow-validator";
+import { getConnectionPool } from "@/lib/xrpl-connection-pool";
 
 export async function POST(req: NextRequest) {
+    const pool = getConnectionPool();
     let client: xrpl.Client | null = null;
 
     try {
         const { query } = await req.json();
 
-        // ── Connect to XRPL Testnet with retry logic
-        client = await connectWithRetry();
+        // ── Acquire a pooled connection to XRPL Testnet
+        client = await pool.acquire();
 
         // ── Load wallet from seed (or generate a funded testnet wallet)
         let wallet: xrpl.Wallet;
@@ -73,9 +25,9 @@ export async function POST(req: NextRequest) {
             wallet = fundResult.wallet;
         }
 
-        // ── Get current ledger info for timing
+        // ── Get current ledger info for timing validation
         const ledgerResult = await client.request({ command: "ledger", ledger_index: "current" });
-        const currentLedger = (ledgerResult.result as any).ledger_index as number;
+        const ledgerInfo = ledgerResult.result as any;
 
         // ── Build EscrowCreate transaction
         const destinationAddress =
@@ -85,17 +37,46 @@ export async function POST(req: NextRequest) {
         // Demo: 5 XRP as proxy for RLUSD (avoids trust line setup)
         const amountDrops = xrpl.xrpToDrops("5");
 
+        const finishAfter = xrpl.isoTimeToRippleTime(
+            new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days
+        );
+
         const escrowTx: xrpl.EscrowCreate = {
             TransactionType: "EscrowCreate",
             Account: wallet.address,
             Amount: amountDrops,
             Destination: destinationAddress,
-            FinishAfter: xrpl.isoTimeToRippleTime(
-                new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString() // 30 days
-            ),
+            FinishAfter: finishAfter,
         };
 
-        // ── Autofill, sign, and submit
+        // ── Phase 1: Offline syntax validation (avoids malformed network calls)
+        const syntaxResult = validateEscrowCreate(escrowTx);
+        if (!syntaxResult.valid) {
+            console.warn("[XRPL] Offline validation failed:", syntaxResult.errors);
+            return NextResponse.json(
+                { error: `Payload validation failed: ${syntaxResult.errors.join("; ")}` },
+                { status: 400 }
+            );
+        }
+        if (syntaxResult.warnings.length > 0) {
+            console.warn("[XRPL] Validation warnings:", syntaxResult.warnings);
+        }
+
+        // ── Phase 2: Strict escrow timing validation (clock drift protection)
+        const ledgerCloseTime = ledgerInfo.ledger?.close_time as number | undefined;
+        const timingResult = validateEscrowTiming(finishAfter, undefined, ledgerCloseTime);
+        if (!timingResult.valid) {
+            console.warn("[XRPL] Escrow timing validation failed:", timingResult.errors);
+            return NextResponse.json(
+                { error: `Escrow timing error: ${timingResult.errors.join("; ")}` },
+                { status: 400 }
+            );
+        }
+        if (timingResult.warnings.length > 0) {
+            console.warn("[XRPL] Escrow timing warnings:", timingResult.warnings);
+        }
+
+        // ── Phase 3: Autofill, sign, and submit
         const prepared = await client.autofill(escrowTx);
         const signed = wallet.sign(prepared);
         const result = await client.submitAndWait(signed.tx_blob);
@@ -124,8 +105,9 @@ export async function POST(req: NextRequest) {
             { status: 500 }
         );
     } finally {
-        if (client?.isConnected()) {
-            await client.disconnect();
+        // ── Release connection back to pool (instead of disconnecting)
+        if (client) {
+            pool.release(client);
         }
     }
 }
