@@ -708,7 +708,7 @@ function IdleState({ side }: { side: "left" | "right" }) {
         <div>{'// LLM stream will appear here'}</div>
         <div style={{ marginTop: "24px", color: "#1e2d40" }}>────────────────────────────</div>
         <div style={{ color: "#1e2d40" }}>LAYER 1: PROBABILISTIC AI</div>
-        <div style={{ color: "#1e2d40" }}>Model: Qwen-2.5 / Claude-3.5</div>
+        <div style={{ color: "#1e2d40" }}>Model: Gemini 3.1 Pro</div>
         <div style={{ color: "#1e2d40" }}>Mode: Natural language parser</div>
         <div style={{ color: "#1e2d40" }}>Output: Raw JSON (UNVERIFIED)</div>
         <div style={{ marginTop: "16px", color: "#ff3b5c", opacity: 0.3 }}>

@@ -79,7 +79,7 @@ Praxis operates on a strict **Neurosymbolic pipeline**:
         │
         ▼
 ┌─────────────────────────────┐
-│  Neural Layer (Cloud)       │  Gemini 2.0 Flash parses TradFi
+│  Neural Layer (Cloud)       │  Gemini 3.1 Pro parses TradFi
 │  "Parse, don't compute"     │  queries into rigid JSON. No math.
 └─────────────────────────────┘
         │
@@ -162,7 +162,7 @@ Visit https://www.praxi.live/ to interact with the Zero-Hallucination Gateway.
 | Frontend | Next.js 14 + React |
 | Styling | Tailwind CSS + Custom CSS |
 | XRPL SDK | `xrpl.js` |
-| AI Layer | Gemini 2.0 Flash |
+| AI Layer | Gemini 3.1 Pro |
 | Deterministic VM | Flux (C99, proprietary) |
 | Scheduler | Tenet (Nash-Equilibrium, proprietary) |
 

@@ -1,0 +1,372 @@
+RUNNING: bin/examples/behavioral/chicken.tenet
+=== Game of Chicken ===
+
+The Brinkmanship Dilemma:
+  - If I swerve, I lose face
+  - If they swerve, I win big
+  - If neither swerves... disaster
+
+-------------------------------------------
+Game: Chicken
+Players: Driver1, Driver2
+Strategies: Straight, Swerve
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Swerve, Straight) with payoffs (-5, 10)
+  -> (Straight, Swerve) with payoffs (10, -5)
+-------------------------------------------
+
+Nash Equilibria: (Straight, Swerve) and (Swerve, Straight)
+But which one? That's the dangerous question.
+
+Historical Example: Cuban Missile Crisis, 1962
+-----------------------------------
+RUNNING: bin/examples/behavioral/stag_hunt.tenet
+=== Stag Hunt ===
+
+Two Nash Equilibria exist:
+  1. (Stag, Stag) - High payoff but risky
+  2. (Hare, Hare) - Safe but low payoff
+
+-------------------------------------------
+Game: StagHunt
+Players: Hunter1, Hunter2
+Strategies: Stag, Hare
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Stag, Stag) with payoffs (10, 10)
+  -> (Hare, Hare) with payoffs (3, 3)
+-------------------------------------------
+
+Insight: Unlike Prisoner's Dilemma, cooperation is stable.
+The problem is coordination and trust, not incentives.
+-----------------------------------
+RUNNING: bin/examples/behavioral/trust_game.tenet
+[line 27] Error at 'Investor': Incomplete payoff matrix for 'Investor' in game 'TrustGame': 4/16 combinations defined. Missing: (Invest, Invest), (Invest, HoldBack), (HoldBack, Invest) and 9 more
+-----------------------------------
+RUNNING: bin/examples/behavioral/ultimatum_game.tenet
+[line 26] Error at 'Proposer': Incomplete payoff matrix for 'Proposer' in game 'UltimatumGame': 4/16 combinations defined. Missing: (Fair, Fair), (Fair, Unfair), (Unfair, Fair) and 9 more
+-----------------------------------
+RUNNING: bin/examples/classic_games/battle_of_sexes.tenet
+=== Battle of the Sexes ===
+
+A Pure Coordination Problem:
+  - Both want to be together
+  - But they prefer different venues
+
+-------------------------------------------
+Game: BattleOfSexes
+Players: Alice, Bob
+Strategies: Opera, Football
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Opera, Opera) with payoffs (3, 2)
+  -> (Football, Football) with payoffs (2, 3)
+-------------------------------------------
+
+Two Nash Equilibria:
+  1. (Opera, Opera)       - Alice: 3, Bob: 2
+  2. (Football, Football) - Alice: 2, Bob: 3
+
+Which will they choose? It depends on:
+  - Communication
+  - Social norms
+  - Focal points (Schelling)
+-----------------------------------
+RUNNING: bin/examples/classic_games/matching_pennies.tenet
+=== Matching Pennies ===
+
+This is a ZERO-SUM game:
+  If Matcher gains +1, Mismatcher loses -1
+
+-------------------------------------------
+Game: MatchingPennies
+Players: Matcher, Mismatcher
+Strategies: Heads, Tails
+-------------------------------------------
+No Pure Strategy Nash Equilibrium found.
+Try mixed strategies (coming soon).
+-------------------------------------------
+
+No Pure Nash Equilibrium exists!
+
+Mixed Strategy Equilibrium:
+  Both players randomize 50/50
+  Expected payoff: 0 for both
+
+Real-world example: Penalty kick direction in soccer.
+-----------------------------------
+RUNNING: bin/examples/classic_games/prisoners_dilemma.tenet
+=== Prisoner's Dilemma ===
+
+Payoff Matrix:
+                Bob: Coop    Bob: Defect
+  Alice: Coop     (3,3)        (0,5)
+  Alice: Defect   (5,0)        (1,1)
+
+-------------------------------------------
+Game: PrisonersDilemma
+Players: Alice, Bob
+Strategies: Cooperate, Defect
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Defect, Defect) with payoffs (1, 1)
+-------------------------------------------
+
+Nash Equilibrium: (Defect, Defect) with payoffs (1, 1)
+Pareto Optimal:   (Cooperate, Cooperate) with payoffs (3, 3)
+
+The tragedy: Rational self-interest leads to worse outcomes.
+-----------------------------------
+RUNNING: bin/examples/industrial_org/bertrand_competition.tenet
+=== Bertrand Price Competition ===
+
+The Bertrand Paradox:
+With just TWO firms competing on price,
+equilibrium drives prices to marginal cost.
+
+-------------------------------------------
+Game: BertrandCompetition
+Players: Firm1, Firm2
+Strategies: HighPrice, LowPrice, PriceWar
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (HighPrice, HighPrice) with payoffs (2000, 2000)
+  -> (LowPrice, LowPrice) with payoffs (1000, 1000)
+  -> (PriceWar, PriceWar) with payoffs (0, 0)
+-------------------------------------------
+
+Insight: Undercutting is always tempting.
+Result: Race to the bottom destroys industry profits.
+-----------------------------------
+RUNNING: bin/examples/industrial_org/cournot_duopoly.tenet
+=== Cournot Duopoly Analysis ===
+
+Market Parameters:
+  Max Price: 100
+  Unit Cost: 10
+
+Strategy Options:
+  Low Output:  30 units
+  High Output: 45 units
+
+-------------------------------------------
+Game: CournotDuopoly
+Players: Firm1, Firm2
+Strategies: Low, High
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Low, Low) with payoffs (900, 900)
+-------------------------------------------
+
+Insight: Both firms choosing 'Low' yields highest joint profit.
+But each firm is tempted to defect to 'High' for short-term gain.
+-----------------------------------
+RUNNING: bin/examples/industrial_org/entry_deterrence.tenet
+[line 38] Error at 'Entrant': Incomplete payoff matrix for 'Entrant' in game 'EntryDeterrence': 4/16 combinations defined. Missing: (Normal, Normal), (Normal, Aggressive), (Aggressive, Normal) and 9 more
+-----------------------------------
+RUNNING: bin/examples/political_economy/arms_race.tenet
+=== Arms Race ===
+
+The Security Dilemma:
+  If they arm and I don't, I'm vulnerable.
+  So I must arm... but then we're both poorer.
+
+-------------------------------------------
+Game: ArmsRace
+Players: Nation1, Nation2
+Strategies: Arm, Disarm
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Arm, Arm) with payoffs (0, 0)
+-------------------------------------------
+
+Insight: Mutual Assured Destruction (MAD) is a Nash equilibrium.
+Both sides would prefer peace, but neither can trust first.
+-----------------------------------
+RUNNING: bin/examples/political_economy/public_goods.tenet
+[line 57] Error at '<': Expect expression.
+-----------------------------------
+RUNNING: bin/examples/political_economy/tragedy_of_commons.tenet
+=== Tragedy of the Commons ===
+
+The Dilemma:
+  If I conserve and you graze, I get nothing.
+  But if we both graze, the resource collapses.
+
+-------------------------------------------
+Game: TragediCommons
+Players: HerderA, HerderB
+Strategies: Graze, Conserve
+-------------------------------------------
+Nash Equilibria (Pure Strategy):
+  -> (Graze, Graze) with payoffs (2, 2)
+-------------------------------------------
+
+Insight: Individual rationality leads to collective ruin.
+Solutions: Property rights, regulation, or social norms.
+-----------------------------------
+RUNNING: bin/examples/founder_proof/01_signaling_game.tenet
+[line 62] Error at 'NonTechFounder': Incomplete payoff matrix for 'NonTechFounder' in game 'FounderSignalingGame': 5/16 combinations defined. Missing: (BuildDSL, BuildDSL), (BuildDSL, BuildMVP), (BuildMVP, BuildDSL) and 8 more
+-----------------------------------
+RUNNING: bin/examples/founder_proof/02_screening_game.tenet
+[line 50] Error at 'Founder': Incomplete payoff matrix for 'Founder' in game 'InvestorScreening': 6/25 combinations defined. Missing: (ScreenHard, ScreenHard), (ScreenHard, ScreenLight), (ScreenLight, ScreenHard) and 16 more
+-----------------------------------
+RUNNING: bin/examples/founder_proof/03_mechanism_design.tenet
+[line 42] Error at 'MechanismDesigner': Incomplete payoff matrix for 'MechanismDesigner' in game 'ProblemSolvingCapability': 4/16 combinations defined. Missing: (DesignNew, DesignNew), (DesignNew, UseExisting), (UseExisting, DesignNew) and 9 more
+-----------------------------------
+RUNNING: bin/examples/founder_proof/04_compound_returns.tenet
+[line 58] Error at 'YoungFounder': Incomplete payoff matrix for 'YoungFounder' in game 'CompoundingAdvantage': 3/4 combinations defined. Missing: (WaitForExperience, WaitForExperience)
+-----------------------------------
+RUNNING: bin/examples/founder_proof/05_obsession_signal.tenet
+[line 45] Error at 'ObsessedFounder': Incomplete payoff matrix for 'ObsessedFounder' in game 'ObsessionSignaling': 4/9 combinations defined. Missing: (BuildInfra, BuildInfra), (ChaseHype, BuildInfra), (ChaseHype, FollowPlaybook) and 2 more
+-----------------------------------
+RUNNING: bin/examples/founder_proof/06_complete_argument.tenet
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║    THE GAME-THEORETIC CASE FOR FAWAZ ISHOLA AS ATLAS FOUNDER          ║
+║                                                                       ║
+║    A Computational Proof Built in Tenet                               ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+This document uses game theory to prove that Fawaz Ishola is the optimal
+founder for Atlas. Each argument is modeled as a formal game.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARGUMENT 1: SIGNALING (Spence, 1973)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLAIM: Building a DSL is an unfakeable signal of technical capability.
+
+EVIDENCE:
+  • Tenet: A complete programming language with lexer, parser, interpreter
+  • Game Theory DSL: Novel syntax for game definition (games, players, payoffs)
+  • VS Code Extension: Syntax highlighting and developer tooling
+  • Documentation: 22-page mdBook, deployed to GitHub Pages
+
+GAME-THEORETIC CONCLUSION:
+  This creates a SEPARATING EQUILIBRIUM.
+  Non-technical founders cannot produce this signal.
+  The signal is costly, verifiable, and unfakeable.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARGUMENT 2: SCREENING (Stiglitz, 1975)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLAIM: Fawaz passed the investor screening test before being asked.
+
+SCREENING TESTS PASSED:
+  ✓ Can you build software? → Tenet interpreter exists
+  ✓ Can you build COMPLEX software? → Recursive descent parser, closures
+  ✓ Can you ship developer tools? → VS Code extension published
+  ✓ Can you think in systems? → Axiom OS multi-project architecture
+  ✓ Can you communicate? → Professional documentation deployed
+  ✓ Do you have commitment? → Multi-month project with no external reward
+
+GAME-THEORETIC CONCLUSION:
+  Due diligence is PRE-COMPLETED.
+  The Axiom stack IS the proof.
+  Investors can verify immediately (all code is public).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARGUMENT 3: MECHANISM DESIGN (Hurwicz, 1960)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLAIM: Atlas is a NOVEL problem. Only mechanism designers can solve it.
+
+THE PROBLEM:
+  • No 'Shopify for creator infrastructure' exists
+  • No playbook for 'portable identity + fintech + workflow'
+  • Must DESIGN the mechanisms, not just use existing tools
+
+THE PROOF:
+  • Tenet = mechanism design for game theory modeling
+  • Atlas = mechanism design for creator economy
+  • Same skills: define rules, align incentives, create equilibria
+
+GAME-THEORETIC CONCLUSION:
+  Tool-users cannot solve novel problems.
+  Fawaz has demonstrated mechanism design capability.
+  The isomorphism is: Tenet:GameTheory :: Atlas:CreatorEconomy
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARGUMENT 4: COMPOUND RETURNS (Mathematical)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLAIM: Youth + long runway = higher expected lifetime value.
+
+THE MATH:
+  • Fawaz at 19: 41 years of compounding → 268x multiplier
+  • Founder at 35: 25 years of compounding → 33x multiplier
+  • Ratio: 8.1x MORE expected lifetime output
+
+GAME-THEORETIC CONCLUSION:
+  Investors aren't betting on TODAY's capability.
+  They're betting on the INTEGRAL under the learning curve.
+  Youth is a strategic advantage when trajectory is proven.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ARGUMENT 5: OBSESSION SIGNAL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+CLAIM: Building infrastructure at 19 (with no external reward) proves obsession.
+
+THE IRRATIONALITY ARGUMENT:
+  • No course required Tenet
+  • No job posting asked for it
+  • No fame comes from compiler work
+  • No quick money is possible
+
+THE SIGNAL:
+  Doing it anyway = CANNOT STOP THINKING ABOUT THIS
+  That obsession = WILL NOT QUIT DURING THE HARD YEARS
+
+GAME-THEORETIC CONCLUSION:
+  Rational actors abandon infrastructure projects.
+  Completing Tenet is an OBSESSION PROOF.
+  Obsession predicts persistence through 'the dip.'
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║                         SYNTHESIS                                     ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+The game-theoretic case for Fawaz as Atlas founder:
+
+┌───────────────────────────────────────────────────────────────────────┐
+│ 1. SIGNAL    │ Building Tenet creates separating equilibrium        │
+│              │ Only capable founders can produce this signal         │
+├───────────────────────────────────────────────────────────────────────┤
+│ 2. SCREEN    │ Pre-passed all technical due diligence tests          │
+│              │ Investors can verify immediately (code is public)     │
+├───────────────────────────────────────────────────────────────────────┤
+│ 3. DESIGN    │ Demonstrated mechanism design capability              │
+│              │ Can build tools for novel problems (Atlas needs this) │
+├───────────────────────────────────────────────────────────────────────┤
+│ 4. COMPOUND  │ 41-year runway vs 25-year = 8x more expected value    │
+│              │ Bet on trajectory, not current state                   │
+├───────────────────────────────────────────────────────────────────────┤
+│ 5. OBSESS    │ Irrational dedication proves intrinsic motivation     │
+│              │ Predicts persistence through 7-10 year startup cycle  │
+└───────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+
+This is not a pitch.
+This is COMPUTATIONAL EVIDENCE.
+
+Built in Tenet — a language created by the founder being evaluated.
+The medium is the message.
+The proof is the product.
+
+═══════════════════════════════════════════════════════════════════════
+                    FAWAZ ISHOLA | AXIOM RESEARCH GROUP
+═══════════════════════════════════════════════════════════════════════
+-----------------------------------
+RUNNING: bin/examples/atlas/atlas_simulation.tenet
+[line 66] Error at 'Platform': Incomplete payoff matrix for 'Platform' in game 'FeudalCreatorEconomy': 4/16 combinations defined. Missing: (HighQuality, HighQuality), (HighQuality, HighVolume), (HighVolume, HighQuality) and 9 more
+[line 103] Error at 'Algorithm': Incomplete payoff matrix for 'Algorithm' in game 'RentSeekerTrap': 4/16 combinations defined. Missing: (Innovate, Innovate), (Innovate, CopyTrends), (CopyTrends, Innovate) and 9 more
+[line 172] Error at 'AtlasProtocol': Incomplete payoff matrix for 'AtlasProtocol' in game 'AtlasCreatorEconomy': 4/16 combinations defined. Missing: (HighQuality, HighQuality), (HighQuality, HighVolume), (HighVolume, HighQuality) and 9 more
+[line 285] Error at 'TradWorker': Incomplete payoff matrix for 'TradWorker' in game 'JevonsMarketExpansion': 4/16 combinations defined. Missing: (JoinCreatorEconomy, JoinCreatorEconomy), (JoinCreatorEconomy, StayTraditional), (StayTraditional, JoinCreatorEconomy) and 9 more
+-----------------------------------
