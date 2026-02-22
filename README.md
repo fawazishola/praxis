@@ -6,7 +6,7 @@
 
 ---
 
-## 🚀 Executive Summary
+##  Executive Summary
 
 In 2026, institutional finance (TradFi) and Decentralized Finance (DeFi) are converging on ledgers like the XRPL. Institutions want to use AI to generate smart contracts, assess risk, and route liquidity.
 
@@ -18,7 +18,7 @@ In 2026, institutional finance (TradFi) and Decentralized Finance (DeFi) are con
 
 ---
 
-## 💡 What Praxis Is, Simply
+##  What Praxis Is, Simply
 
 > **Conditional money movement, mathematically guaranteed.**
 
@@ -26,7 +26,7 @@ Praxis lets anyone express a financial condition in plain English — *"release 
 
 ---
 
-## 💸 What Praxis Replaces & What It Costs
+##  What Praxis Replaces & What It Costs
 
 | What You'd Normally Pay | Traditional Cost | Praxis Cost |
 |---|---|---|
@@ -52,7 +52,7 @@ The $50K audit isn't just expensive — it's a gatekeeping mechanism. It means o
 
 ---
 
-## 🏛️ The "Triple Crown" Alignment
+##  The "Triple Crown" Alignment
 
 ### 1. Ripple Challenge: Enterprise DeFi, Privacy & Programmability
 
@@ -70,7 +70,7 @@ While standard applications wrap APIs, Praxis utilizes bare-metal systems engine
 
 ---
 
-## ⚙️ System Architecture
+##  System Architecture
 
 Praxis operates on a strict **Neurosymbolic pipeline**:
 
@@ -108,12 +108,12 @@ Praxis operates on a strict **Neurosymbolic pipeline**:
 
 > **Note:** To comply with hackathon regulations, the `praxis-dashboard` and XRPL integration were built entirely during the 36-hour window. The Flux and Tenet compilers are pre-published proprietary binaries leveraged as the execution environment.
 
-- 🔗 [Flux Compiler — Binary Release](https://github.com/fawazishola/flux/releases)
-- 🔗 [Tenet Scheduler — Binary Release](https://github.com/fawazishola/tenet/releases)
+-  [Flux Compiler — Binary Release](https://github.com/fawazishola/flux/releases)
+- [Tenet Scheduler — Binary Release](https://github.com/fawazishola/tenet/releases)
 
 ---
 
-## 🛠️ XRPL Developer Feedback *(Bounty Submission)*
+##  XRPL Developer Feedback *(Bounty Submission)*
 
 During the integration of `xrpl.js` for the RLUSD Smart Escrow generation, I evaluated the SDK from a systems architecture perspective. Here is my feedback for the Ripple Developer Relations team:
 
@@ -128,7 +128,7 @@ When running a Next.js serverless architecture, maintaining the `Client` WebSock
 
 ---
 
-## 💻 Running Praxis Locally
+## Running Praxis Locally
 
 **Prerequisites:** Node.js v18+, an active Ripple Testnet Wallet, and a Linux environment.
 
@@ -151,7 +151,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000) to interact with the Zero-Hallucination Gateway.
+Visit https://www.praxi.live/ to interact with the Zero-Hallucination Gateway.
 
 ---
 
@@ -168,4 +168,4 @@ Visit [http://localhost:3000](http://localhost:3000) to interact with the Zero-H
 
 ---
 
-*Built with grit at NSBEHacks 2026. The future is deterministic.*
+*Built at NSBEHacks 2026. .*
